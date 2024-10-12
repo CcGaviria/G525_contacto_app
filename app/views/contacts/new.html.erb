@@ -1,11 +1,74 @@
-<% content_for :title, "New contact" %>
+<h1>Formulario de Contacto</h1>
 
-<h1>New contact</h1>
+<%= form_with(model: @contact, local: true) do |form| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> encontrados en el formulario:</h2>
 
-<%= render "form", contact: @contact %>
+      <ul>
+        <% @contact.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<br>
+  <div class="field">
+    <%= form.label :sex %>
+    <%= form.select :sex, [['Masculino', 'masculino'], ['Femenino', 'femenino'], ['Otro', 'otro']] %>
+  </div>
 
-<div>
-  <%= link_to "Back to contacts", contacts_path %>
-</div>
+  <div class="field">
+    <%= form.label :birth_date, "Fecha de Nacimiento" %>
+    <%= form.date_field :birth_date, min: (Date.today - 100.years).strftime("%Y-%m-%d"), max: (Date.today).strftime("%Y-%m-%d"), required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address_details %>
+    <%= form.text_area :address_details %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.select :country, [['Colombia', 'colombia'],['Otro', 'otro']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department %>
+    <%= form.select :department, [['Amazonas', 'amazonas'],['Otro', 'otro']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.select :city, [['Leticia', 'leticia'],['Puerto Nariño', 'puerto nariño']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :information %>
+    <%= form.text_area :information %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

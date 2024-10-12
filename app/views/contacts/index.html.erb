@@ -1,16 +1,45 @@
-<p style="color: green"><%= notice %></p>
+<h1>Registros </h1>
 
-<% content_for :title, "Contacts" %>
+<table>
+  <thead>
+    <tr>
+      <th>Sexo</th>
+      <th>Fecha de Nacimiento</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Dirección</th>
+      <th>Detalles de Dirección</th>
+      <th>País</th>
+      <th>Departamento</th>
+      <th>Ciudad</th>
+      <th>Información</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<h1>Contacts</h1>
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.sex %></td>
+        <td><%= contact.birth_date %></td>
+        <td><%= contact.first_name %></td>
+        <td><%= contact.last_name %></td>
+        <td><%= contact.email %></td>
+        <td><%= contact.address %></td>
+        <td><%= contact.address_details %></td>
+        <td><%= contact.country %></td>
+        <td><%= contact.department %></td>
+        <td><%= contact.city %></td>
+        <td><%= contact.information %></td>
+        <td><%= link_to 'Mostrar', contact %></td>
+        <td><%= link_to 'Editar', edit_contact_path(contact) %></td>
+        <td><%= link_to 'Eliminar', contact, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<div id="contacts">
-  <% @contacts.each do |contact| %>
-    <%= render contact %>
-    <p>
-      <%= link_to "Show this contact", contact %>
-    </p>
-  <% end %>
+<div>
+  <%= link_to 'Contactar', new_contact_path %>
 </div>
-
-<%= link_to "New contact", new_contact_path %>

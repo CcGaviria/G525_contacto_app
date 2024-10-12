@@ -1,9 +1,13 @@
 <h1>Formulario de Contacto</h1>
 
-<%= form_with(model: @contact, local: true) do |form| %>
+<div id="container">
+
+<div id="about_us">
+</div>
+<%= form_with(model: @contact, local: true, html: { id: "contact_form" }) do |form| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "error") %> encontrados en el formulario:</h2>
+      <h2><%= pluralize(@contact.errors.count, "problema") %> encontrados en el formulario:</h2>
 
       <ul>
         <% @contact.errors.full_messages.each do |message| %>
@@ -13,24 +17,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :sex %>
-    <%= form.select :sex, [['Masculino', 'masculino'], ['Femenino', 'femenino'], ['Otro', 'otro']] %>
-  </div>
+  <div class="group_elements">
+    <div class="field">
+      <%= form.label :sex %>
+      <%= form.select :sex, [['Masculino', 'masculino'], ['Femenino', 'femenino'], ['Otro', 'otro']] %>
+    </div>
 
-  <div class="field">
-    <%= form.label :birth_date, "Fecha de Nacimiento" %>
-    <%= form.date_field :birth_date, min: (Date.today - 100.years).strftime("%Y-%m-%d"), max: (Date.today).strftime("%Y-%m-%d"), required: true %>
-  </div>
+    <div class="field">
+      <%= form.label :birth_date, "Fecha de Nacimiento" %>
+      <%= form.date_field :birth_date, min: (Date.today - 100.years).strftime("%Y-%m-%d"), max: (Date.today).strftime("%Y-%m-%d"), required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+    <div class="field">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name %>
+    </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
+    <div class="field">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name %>
+    </div>
   </div>
 
   <div class="field">
@@ -43,32 +49,36 @@
     <%= form.text_field :address %>
   </div>
 
-  <div class="field">
-    <%= form.label :address_details %>
-    <%= form.text_area :address_details %>
-  </div>
+  <div class="group_elements">
 
-  <div class="field">
-    <%= form.label :country %>
-    <%= form.select :country, [['Colombia', 'colombia'],['Otro', 'otro']] %>
-  </div>
+    <div class="field">
+      <%= form.label :address_details %>
+      <%= form.text_area :address_details %>
+    </div>
 
-  <div class="field">
-    <%= form.label :department %>
-    <%= form.select :department, [['Amazonas', 'amazonas'],['Otro', 'otro']] %>
-  </div>
+    <div class="field">
+      <%= form.label :country %>
+      <%= form.select :country, [['Colombia', 'colombia'],['Otro', 'otro']] %>
+    </div>
 
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.select :city, [['Leticia', 'leticia'],['Puerto Nariño', 'puerto nariño']] %>
-  </div>
+    <div class="field">
+      <%= form.label :department %>
+      <%= form.select :department, [['Amazonas', 'amazonas'],['Otro', 'otro']] %>
+    </div>
 
+    <div class="field">
+      <%= form.label :city %>
+      <%= form.select :city, [['Leticia', 'leticia'],['Puerto Nariño', 'puerto nariño']] %>
+    </div>
+  </div>
   <div class="field">
     <%= form.label :information %>
     <%= form.text_area :information %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Enviar", class: "btn-submit" %>
   </div>
 <% end %>
+
+</div>

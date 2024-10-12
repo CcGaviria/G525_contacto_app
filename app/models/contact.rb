@@ -9,4 +9,16 @@ class Contact < ApplicationRecord
     validates :department, presence: true
     validates :city, presence: true
     validates :information, presence: true
+
+    validate :must_be_at_least_18_years_old
+
+    private
+
+    def must_be_at_least_18_years_old
+      return if birth_date.blank?
+  
+      if birth_date > 18.years.ago.to_date
+        errors.add(:birth_date, "Debes ser mayor de 18 años para contactarnos.")
+      end
+    end
 end

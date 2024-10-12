@@ -11,6 +11,7 @@ class Contact < ApplicationRecord
     validates :information, presence: true
 
     validate :must_be_at_least_18_years_old
+    validate :maximum_contacts_per_city
 
     private
 
@@ -21,4 +22,11 @@ class Contact < ApplicationRecord
         errors.add(:birth_date, "Debes ser mayor de 18 años para contactarnos.")
       end
     end
+
+    def maximum_contacts_per_city
+        if Contact.where(city: city).count >= 3
+          errors.add(:city, "Ya hay 3 registros en esta ciudad. No se pueden registrar más.")
+        end
+    end
+    
 end

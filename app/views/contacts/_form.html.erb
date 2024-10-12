@@ -16,9 +16,9 @@
     <%= form.text_field :sex %>
   </div>
 
-  <div>
-    <%= form.label :birth_date, style: "display: block" %>
-    <%= form.date_field :birth_date %>
+  <div class="field">
+    <%= form.label :birth_date, "Fecha de Nacimiento" %>
+    <%= form.date_field :birth_date, min: (Date.today - 100.years).strftime("%Y-%m-%d"), max: (Date.today).strftime("%Y-%m-%d"), required: true %>
   </div>
 
   <div>

@@ -13,7 +13,7 @@ class ContactsController < ApplicationController
   end
 
   def export_pdf
-    @contacts = Contact.all.group_by(&:city)
+    @contacts = Contact.includes(city: :department).all.group_by(&:city)
 
     respond_to do |format|
       format.pdf do
@@ -23,7 +23,7 @@ class ContactsController < ApplicationController
         pdf.move_down 20
 
         @contacts.each do |city, contacts|
-          pdf.text "Ciudad: #{city}", size: 20, style: :bold
+          pdf.text "Ciudad: #{city.name}", size: 20, style: :bold
           pdf.move_down 10
 
           table_data = contact_data(contacts)
@@ -67,7 +67,9 @@ class ContactsController < ApplicationController
   # POST /contacts or /contacts.json
   def create
     @contact = Contact.new(contact_params)
-
+    @countries = Country.all
+    @departments = Department.where(country_id: @contact.country_id)
+    @cities = City.where(department_id: @contact.department_id)
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: "Contact was successfully created." }
@@ -114,19 +116,18 @@ class ContactsController < ApplicationController
     end
 
     def contact_data(contacts)
-      [["Sexo", "Fecha de Nacimiento", "Nombre", "Apellido", "Email", "Dirección", "País", "Departamento", "Información"]] +
-      contacts.map do |contact|
+      header = ['Nombre', 'Apellido', 'Email', 'Dirección', 'Ciudad', 'Departamento', 'País']
+      data = contacts.map do |contact|
         [
-          contact.sex,
-          contact.birth_date.strftime("%d/%m/%Y"),  # Asegúrate de formatear la fecha
           contact.first_name,
           contact.last_name,
           contact.email,
           contact.address,
-          contact.country,
-          contact.department,
-          contact.information
+          contact.city.name,
+          contact.city.department.name,
+          contact.city.department.country.name 
         ]
       end
+      [header] + data
     end
 end

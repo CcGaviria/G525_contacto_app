@@ -6,6 +6,11 @@ class ContactsController < ApplicationController
     @contacts = Contact.all
   end
 
+  def index_json
+    @contacts = Contact.all
+    render json: @contacts
+  end
+
   # GET /contacts/1 or /contacts/1.json
   def show
   end

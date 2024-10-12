@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :contacts
+  resources :contacts do
+    collection do
+      get :index_json
+    end
+  end
   root "contacts#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

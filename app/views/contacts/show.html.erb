@@ -1,10 +1,43 @@
-<p style="color: green"><%= notice %></p>
 
-<%= render @contact %>
+<h1>Detalles del Contacto</h1>
 
-<div>
-  <%= link_to "Edit this contact", edit_contact_path(@contact) %> |
-  <%= link_to "Back to contacts", contacts_path %>
+<p>
+  <strong>Nombre:</strong>
+  <%= @contact.first_name %>
+</p>
+<p>
+  <strong>Apellido:</strong>
+  <%= @contact.last_name %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @contact.email %>
+</p>
+<p>
+  <strong>Dirección:</strong>
+  <%= @contact.address %>
+</p>
+<p>
+  <strong>Departamento:</strong>
+  <%= @contact.department.name if @contact.department.present? %>
+</p>
+<p>
+  <strong>Ciudad:</strong>
+  <%= @contact.city.name if @contact.city.present? %>
+</p>
+<p>
+  <strong>País:</strong>
+  <%= @contact.country.name if @contact.country.present? %>
+</p>
 
-  <%= button_to "Destroy this contact", @contact, method: :delete %>
+<p>
+  <strong>Informacion:</strong>
+  <%= @contact.information %>
+</p>
+
+<div  class="content-actions">
+  <%= link_to 'Volver al listado', contacts_path, class: "btn btn-show" %>
+  <%= link_to 'Editar', edit_contact_path(@contact), class: "btn btn-edit" %>
+  <%= button_to "Eliminar", @contact, method: :delete, class: "btn btn-delete"%>
 </div>
+

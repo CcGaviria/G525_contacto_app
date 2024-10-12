@@ -12,7 +12,7 @@
   <% end %>
 
   <div>
-    <%= form.label :sex, style: "display: block" %>
+    <%= form.label :sex, "Sexo", style: "display: block" %>
     <%= form.text_field :sex %>
   </div>
 
@@ -22,47 +22,47 @@
   </div>
 
   <div>
-    <%= form.label :first_name, style: "display: block" %>
+    <%= form.label :first_name, "Nombre", style: "display: block" %>
     <%= form.text_field :first_name %>
   </div>
 
   <div>
-    <%= form.label :last_name, style: "display: block" %>
+    <%= form.label :last_name, "Apellido", style: "display: block" %>
     <%= form.text_field :last_name %>
   </div>
 
   <div>
-    <%= form.label :email, style: "display: block" %>
+    <%= form.label :email, "Email", style: "display: block" %>
     <%= form.text_field :email %>
   </div>
 
   <div>
-    <%= form.label :address, style: "display: block" %>
+    <%= form.label :address, "Dirección", style: "display: block" %>
     <%= form.text_field :address %>
   </div>
 
   <div>
-    <%= form.label :address_details, style: "display: block" %>
+    <%= form.label :address_details, "Casa / Apartamento", style: "display: block" %>
     <%= form.text_field :address_details %>
   </div>
+    
+  <div class="field">
+    <%= form.label :country_id %>
+    <%= form.collection_select :country_id, @countries, :id, :name, { prompt: 'Selecciona un país' }, { id: 'country_select' } %>
+  </div>
 
-  <div>
-    <%= form.label :country, style: "display: block" %>
-    <%= form.text_field :country %>
+  <div class="field">
+    <%= form.label :department_id %>
+    <%= form.collection_select :department_id, @departments, :id, :name, { prompt: 'Selecciona un departamento' }, { id: 'department_select' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city_id %>
+    <%= form.collection_select :city_id, @cities, :id, :name, { prompt: 'Selecciona una ciudad' }, { id: 'city_select' } %>
   </div>
 
   <div>
-    <%= form.label :department, style: "display: block" %>
-    <%= form.text_field :department %>
-  </div>
-
-  <div>
-    <%= form.label :city, style: "display: block" %>
-    <%= form.text_field :city %>
-  </div>
-
-  <div>
-    <%= form.label :information, style: "display: block" %>
+    <%= form.label :information, "Información", style: "display: block" %>
     <%= form.text_area :information %>
   </div>
 

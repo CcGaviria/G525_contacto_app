@@ -7,3 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Seed country Colombia
+colombia = Country.create!(name: 'Colombia')
+
+# Seed departamentos
+amazonas = Department.create!(name: 'Amazonas', country: colombia)
+bogota = Department.create!(name: 'Bogotá', country: colombia)
+
+# Seed ciudades para Amazonas
+Leticia = City.create!(name: 'Leticia', department: amazonas)
+PuertoNarino = City.create!(name: 'Puerto Narino', department: amazonas)
+
+# Seed ciudades para Bogotá
+BogotaCity = City.create!(name: 'Bogotá', department: bogota)
+
+puts "Seed data created successfully!"

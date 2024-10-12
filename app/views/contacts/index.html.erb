@@ -27,9 +27,9 @@
         <td><%= contact.email %></td>
         <td><%= contact.address %></td>
         <td><%= contact.address_details %></td>
-        <td><%= contact.country %></td>
-        <td><%= contact.department %></td>
-        <td><%= contact.city %></td>
+        <td><%= contact.country.name if contact.country.present? %></td>
+        <td><%= contact.department.name if contact.department.present? %></td>
+        <td><%= contact.city.name if contact.city.present? %></td>
         <td><%= contact.information %></td>
         <td class="content-actions">
           <%= link_to 'Mostrar', contact, class: "btn btn-show" %>
@@ -56,7 +56,7 @@
   <tbody>
     <% @totals_by_city.each do |city, count| %>
       <tr>
-        <td><%= city %></td>
+        <td><%= city.name %></td>
         <td><%= count %></td>
       </tr>
     <% end %>

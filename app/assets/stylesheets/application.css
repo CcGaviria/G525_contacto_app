@@ -27,7 +27,7 @@ h1 {
 
 
 
-#container {
+#contact_form_container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

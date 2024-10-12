@@ -3,7 +3,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts or /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = Contact.includes(:country, :department, :city).all
     @totals_by_city = Contact.group(:city).count
   end
 
@@ -45,15 +45,23 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1 or /contacts/1.json
   def show
+    @contact = Contact.includes(:country, :department, :city).find(params[:id])
   end
 
   # GET /contacts/new
   def new
     @contact = Contact.new
+    @countries = Country.all
+    @departments = []
+    @cities = []
   end
 
   # GET /contacts/1/edit
   def edit
+    @contact = Contact.includes(:country, :department, :city).find(params[:id])
+    @countries = Country.all
+    @departments = Department.where(country_id: @contact.country_id)
+    @cities = City.where(department_id: @contact.department_id)
   end
 
   # POST /contacts or /contacts.json
@@ -102,7 +110,7 @@ class ContactsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contact_params
-      params.require(:contact).permit(:sex, :birth_date, :first_name, :last_name, :email, :address, :address_details, :country, :department, :city, :information)
+      params.require(:contact).permit(:sex, :birth_date, :first_name, :last_name, :email, :address, :address_details, :country_id, :department_id, :city_id, :information)
     end
 
     def contact_data(contacts)

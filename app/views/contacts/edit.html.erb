@@ -1,12 +1,83 @@
-<% content_for :title, "Editing contact" %>
 
-<h1>Editing contact</h1>
+<h1>Editar Contacto</h1>
 
-<%= render "form", contact: @contact %>
+<div id="contact_form_container">
 
-<br>
+  <%= form_with(model: @contact, local: true, html: { id: "contact_form" }) do |form| %>
+    <% if @contact.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@contact.errors.count, "problema") %> encontrados en el formulario:</h2>
 
-<div>
-  <%= link_to "Show this contact", @contact %> |
-  <%= link_to "Back to contacts", contacts_path %>
+        <ul>
+          <% @contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="group_elements">
+      <div class="field">
+        <%= form.label :sex %>
+        <%= form.select :sex, [['Masculino', 'masculino'], ['Femenino', 'femenino'], ['Otro', 'otro']] %>
+      </div>
+
+      <div class="field">
+        <%= form.label :birth_date, "Fecha de Nacimiento" %>
+        <%= form.date_field :birth_date, min: (Date.today - 100.years).strftime("%Y-%m-%d"), max: (Date.today).strftime("%Y-%m-%d"), required: true %>
+      </div>
+
+      <div class="field">
+        <%= form.label :first_name, "Nombre" %>
+        <%= form.text_field :first_name %>
+      </div>
+
+      <div class="field">
+        <%= form.label :last_name,  "Apellido" %>
+        <%= form.text_field :last_name %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :email, "Email"  %>
+      <%= form.email_field :email %>
+    </div>
+
+    <div class="field">
+      <%= form.label :address, "Dirección" %>
+      <%= form.text_field :address %>
+    </div>
+
+    <div class="group_elements">
+
+      <div class="field">
+        <%= form.label :address_details,  "Casa / Apartamento"%>
+        <%= form.text_area :address_details %>
+      </div>
+
+      <div class="field">
+        <%= form.label :country_id %>
+        <%= form.collection_select :country_id, @countries, :id, :name, { prompt: 'Selecciona un país' }, { id: 'country_select' } %>
+      </div>
+
+      <div class="field">
+        <%= form.label :department_id %>
+        <%= form.collection_select :department_id, @departments, :id, :name, { prompt: 'Selecciona un departamento' }, { id: 'department_select' } %>
+      </div>
+
+      <div class="field">
+        <%= form.label :city_id %>
+        <%= form.collection_select :city_id, @cities, :id, :name, { prompt: 'Selecciona una ciudad' }, { id: 'city_select' } %>
+      </div>
+    </div>
+    <div class="field">
+      <%= form.label :information, "Información" %>
+      <%= form.text_area :information %>
+    </div>
+
+    <div class="content-actions">
+      <%= form.submit "Guardar", class: "btn-submit" %>
+    </div>
+  <% end %>
+
 </div>

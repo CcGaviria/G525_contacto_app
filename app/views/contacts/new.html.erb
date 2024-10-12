@@ -1,6 +1,6 @@
 <h1>Formulario de Contacto</h1>
 
-<div id="container">
+<div id="contact_form_container">
 
 <div id="about_us">
 </div>
@@ -19,7 +19,7 @@
 
   <div class="group_elements">
     <div class="field">
-      <%= form.label :sex %>
+      <%= form.label :sex, "Sexo" %>
       <%= form.select :sex, [['Masculino', 'masculino'], ['Femenino', 'femenino'], ['Otro', 'otro']] %>
     </div>
 
@@ -29,54 +29,55 @@
     </div>
 
     <div class="field">
-      <%= form.label :first_name %>
+      <%= form.label :first_name, "Nombre" %>
       <%= form.text_field :first_name %>
     </div>
 
     <div class="field">
-      <%= form.label :last_name %>
+      <%= form.label :last_name, "Apellido" %>
       <%= form.text_field :last_name %>
     </div>
   </div>
 
   <div class="field">
-    <%= form.label :email %>
+    <%= form.label :email, "Email" %>
     <%= form.email_field :email %>
   </div>
 
   <div class="field">
-    <%= form.label :address %>
+    <%= form.label :address, "Dirección" %>
     <%= form.text_field :address %>
   </div>
 
   <div class="group_elements">
 
     <div class="field">
-      <%= form.label :address_details %>
+      <%= form.label :address_details, "Casa / Apartamento" %>
       <%= form.text_area :address_details %>
     </div>
 
     <div class="field">
-      <%= form.label :country %>
-      <%= form.select :country, [['Colombia', 'colombia'],['Otro', 'otro']] %>
+      <%= form.label :country_id %>
+      <%= form.collection_select :country_id, @countries, :id, :name, { prompt: 'Selecciona un país' }, { id: 'country_select' } %>
     </div>
 
     <div class="field">
-      <%= form.label :department %>
-      <%= form.select :department, [['Amazonas', 'amazonas'],['Otro', 'otro']] %>
+      <%= form.label :department_id %>
+      <%= form.collection_select :department_id, @departments, :id, :name, { prompt: 'Selecciona un departamento' }, { id: 'department_select' } %>
     </div>
 
     <div class="field">
-      <%= form.label :city %>
-      <%= form.select :city, [['Leticia', 'leticia'],['Puerto Nariño', 'puerto nariño']] %>
+      <%= form.label :city_id %>
+      <%= form.collection_select :city_id, @cities, :id, :name, { prompt: 'Selecciona una ciudad' }, { id: 'city_select' } %>
     </div>
+
   </div>
   <div class="field">
-    <%= form.label :information %>
+    <%= form.label :information, "Información" %>
     <%= form.text_area :information %>
   </div>
 
-  <div class="actions">
+  <div class="content-actions">
     <%= form.submit "Enviar", class: "btn-submit" %>
   </div>
 <% end %>

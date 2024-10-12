@@ -4,6 +4,7 @@ class ContactsController < ApplicationController
   # GET /contacts or /contacts.json
   def index
     @contacts = Contact.all
+    @totals_by_city = Contact.group(:city).count
   end
 
   def index_json

@@ -46,3 +46,21 @@
 <div>
   <%= link_to 'Contactar', new_contact_path %>
 </div>
+
+<h2>Total de Registros por Ciudad</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Ciudad</th>
+      <th>Total de Contactos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @totals_by_city.each do |city, count| %>
+      <tr>
+        <td><%= city %></td>
+        <td><%= count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

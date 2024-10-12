@@ -12,6 +12,37 @@ class ContactsController < ApplicationController
     render json: @contacts
   end
 
+  def export_pdf
+    @contacts = Contact.all.group_by(&:city)
+
+    respond_to do |format|
+      format.pdf do
+        pdf = Prawn::Document.new(page_size: 'TABLOID', page_layout: :landscape)
+
+        pdf.text "Solicitudes de Contacto por Ciudad", size: 30, style: :bold
+        pdf.move_down 20
+
+        @contacts.each do |city, contacts|
+          pdf.text "Ciudad: #{city}", size: 20, style: :bold
+          pdf.move_down 10
+
+          table_data = contact_data(contacts)
+          pdf.table(table_data, header: true, width: pdf.bounds.width, cell_style: { inline_format: true }) do
+            row(0).font_style = :bold
+            row(0).background_color = 'cccccc'  # Cambia el color de fondo del encabezado si lo deseas
+          end
+
+          pdf.move_down 20  # Espacio entre tablas
+        end
+
+        send_data pdf.render, filename: "contactos.pdf", type: "application/pdf", disposition: "attachment"
+      end
+      format.html do
+        redirect_to contacts_path, alert: 'Formato no soportado. Solo PDF disponible.'
+      end
+    end
+  end
+
   # GET /contacts/1 or /contacts/1.json
   def show
   end
@@ -72,5 +103,22 @@ class ContactsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def contact_params
       params.require(:contact).permit(:sex, :birth_date, :first_name, :last_name, :email, :address, :address_details, :country, :department, :city, :information)
+    end
+
+    def contact_data(contacts)
+      [["Sexo", "Fecha de Nacimiento", "Nombre", "Apellido", "Email", "Dirección", "País", "Departamento", "Información"]] +
+      contacts.map do |contact|
+        [
+          contact.sex,
+          contact.birth_date.strftime("%d/%m/%Y"),  # Asegúrate de formatear la fecha
+          contact.first_name,
+          contact.last_name,
+          contact.email,
+          contact.address,
+          contact.country,
+          contact.department,
+          contact.information
+        ]
+      end
     end
 end

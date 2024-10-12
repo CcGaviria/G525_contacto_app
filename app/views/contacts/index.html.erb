@@ -3,6 +3,9 @@
 <!-- Botón para ver contactos en JSON -->
 <%= link_to 'Ver en JSON', index_json_contacts_path, class: 'btn btn-primary', target: '_blank' %>
 
+<!-- Botón para exportar a PDF -->
+<%= link_to 'Exportar a PDF', export_pdf_contacts_path(format: :pdf), class: 'btn btn-secondary' %>
+
 <table>
   <thead>
     <tr>

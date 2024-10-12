@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :contacts do
     collection do
       get :index_json
+      get :export_pdf
     end
   end
   root "contacts#index"

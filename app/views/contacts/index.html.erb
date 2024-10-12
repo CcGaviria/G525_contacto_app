@@ -1,12 +1,6 @@
-<h1>Registros </h1>
+<h1>Registros de Contacto</h1>
 
-<!-- Botón para ver contactos en JSON -->
-<%= link_to 'Ver en JSON', index_json_contacts_path, class: 'btn btn-primary', target: '_blank' %>
-
-<!-- Botón para exportar a PDF -->
-<%= link_to 'Exportar a PDF', export_pdf_contacts_path(format: :pdf), class: 'btn btn-secondary' %>
-
-<table>
+<table class="contact-table">
   <thead>
     <tr>
       <th>Sexo</th>
@@ -20,15 +14,14 @@
       <th>Departamento</th>
       <th>Ciudad</th>
       <th>Información</th>
-      <th colspan="3"></th>
+      <th>Acciones</th>
     </tr>
   </thead>
-
   <tbody>
     <% @contacts.each do |contact| %>
       <tr>
         <td><%= contact.sex %></td>
-        <td><%= contact.birth_date %></td>
+        <td><%= contact.birth_date.strftime("%d/%m/%Y") %></td>
         <td><%= contact.first_name %></td>
         <td><%= contact.last_name %></td>
         <td><%= contact.email %></td>
@@ -38,24 +31,26 @@
         <td><%= contact.department %></td>
         <td><%= contact.city %></td>
         <td><%= contact.information %></td>
-        <td><%= link_to 'Mostrar', contact %></td>
-        <td><%= link_to 'Editar', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Eliminar', contact, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+        <td class="content-actions">
+          <%= link_to 'Mostrar', contact, class: "btn btn-show" %>
+          <%= link_to 'Editar', edit_contact_path(contact), class: "btn btn-edit" %>
+          <%= link_to 'Eliminar', contact, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn btn-delete" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <div>
-  <%= link_to 'Contactar', new_contact_path %>
+  <%= link_to 'Contactar', new_contact_path, class: "btn btn-add" %>
 </div>
 
 <h2>Total de Registros por Ciudad</h2>
-<table>
+<table class="city-totalization-table">
   <thead>
     <tr>
       <th>Ciudad</th>
-      <th>Total de Contactos</th>
+      <th>Total Registros</th>
     </tr>
   </thead>
   <tbody>
@@ -67,3 +62,12 @@
     <% end %>
   </tbody>
 </table>
+
+<h2>Acciones</h2>
+
+
+<!-- Botón para ver contactos en JSON -->
+<%= link_to "Ver en JSON", index_json_contacts_path, class: "btn btn-json", target: '_blank' %>
+
+<!-- Botón para exportar a PDF -->
+<%= link_to 'Exportar a PDF', export_pdf_contacts_path(format: :pdf), class: 'btn btn-pdf' %>
